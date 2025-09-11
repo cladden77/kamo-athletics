@@ -4,9 +4,10 @@ import imageUrlBuilder from '@sanity/image-url'
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'ua5ga1nx',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
-  useCdn: false, // Disable CDN for real-time updates during development
+  useCdn: process.env.NODE_ENV === 'production', // Use CDN in production for better performance
   apiVersion: '2024-01-01',
   perspective: process.env.NODE_ENV === 'development' ? 'drafts' : 'published', // Fetch drafts in dev, published in prod
+  token: process.env.SANITY_API_TOKEN, // Add token for studio access
 })
 
 const builder = imageUrlBuilder(client)
