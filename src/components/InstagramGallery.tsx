@@ -139,7 +139,7 @@ export default function InstagramGallery() {
   }
 
   return (
-    <div className="bg-[#f2f2f2] pb-[75px]">
+    <div id="instagram" className="bg-[#f2f2f2] pb-[75px]">
       {/* Mobile Instagram Grid - 3 stacked images */}
       <div className="block md:hidden mb-16 space-y-1">
         {mobileDisplayPosts.map((post) => (

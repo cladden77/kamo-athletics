@@ -1,6 +1,7 @@
 export default function Hero() {
   return (
     <div 
+      id="home"
       className="relative min-h-[900px] bg-cover bg-center bg-no-repeat flex items-center justify-center"
       style={{
         backgroundImage: `url('/kamo-hero-gradient.jpg')`

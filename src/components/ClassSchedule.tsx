@@ -1,6 +1,6 @@
 export default function ClassSchedule() {
   return (
-    <section className="bg-gradient-to-b from-[#121212] from-[88.942%] to-[#0b3a86] py-24 px-4 md:px-8 lg:px-[152px]">
+    <section id="schedule" className="bg-gradient-to-b from-[#121212] from-[88.942%] to-[#0b3a86] py-24 px-4 md:px-8 lg:px-[152px]">
       <div className="max-w-[1265px] mx-auto">
         <div className="flex flex-col lg:flex-row gap-24 items-center">
           {/* Content */}

@@ -13,7 +13,7 @@ export default function Contact() {
   ];
 
   return (
-    <section className="bg-gradient-to-b from-[#121212] from-[89.904%] to-[#0b3a86] py-24 px-4 md:px-8 lg:px-[120px]">
+    <section id="contact" className="bg-gradient-to-b from-[#121212] from-[89.904%] to-[#0b3a86] py-24 px-4 md:px-8 lg:px-[120px]">
       <div className="max-w-[1200px] mx-auto">
         {/* Heading */}
         <div className="text-center mb-[63px]">

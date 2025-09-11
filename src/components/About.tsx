@@ -24,7 +24,7 @@ export default function About() {
   ];
 
   return (
-    <section className="bg-[#f2f2f2] py-[70px] px-4 md:px-8 lg:px-[152px]">
+    <section id="about" className="bg-[#f2f2f2] py-[70px] px-4 md:px-8 lg:px-[152px]">
       <div className="max-w-[1200px] mx-auto">
         {/* Header Content */}
         <div className="text-center mb-16">
