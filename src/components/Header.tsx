@@ -1,8 +1,29 @@
 'use client';
 
 import { useState } from 'react';
+import { urlFor } from '../../sanity/client';
 
-export default function Header() {
+interface SiteSettings {
+  logo?: {
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+    alt?: string;
+  };
+  navigation?: Array<{
+    title: string;
+    sectionId: string;
+  }>;
+  ctaButtonText?: string;
+  primaryColor?: { hex?: string };
+}
+
+interface HeaderProps {
+  siteSettings?: SiteSettings;
+}
+
+export default function Header({ siteSettings }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -25,6 +46,21 @@ export default function Header() {
     scrollToSection('contact');
   };
 
+  // Fallback values (original content)
+  const logo = siteSettings?.logo?.asset 
+    ? urlFor(siteSettings.logo.asset).url()
+    : '/kamo-logo.svg';
+  const logoAlt = siteSettings?.logo?.alt || 'KAMO Athletics Logo';
+  const navigation = siteSettings?.navigation || [
+    { title: 'HOME', sectionId: 'home' },
+    { title: 'INSTAGRAM', sectionId: 'instagram' },
+    { title: 'SCHEDULE', sectionId: 'schedule' },
+    { title: 'ABOUT', sectionId: 'about' },
+    { title: 'CONTACT', sectionId: 'contact' }
+  ];
+  const ctaButtonText = siteSettings?.ctaButtonText || 'CALL NOW';
+  const primaryColor = siteSettings?.primaryColor?.hex || '#0b3a86';
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-[5px] backdrop-filter bg-[rgba(18,18,18,0.95)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -32,9 +68,10 @@ export default function Header() {
           {/* Logo - Left Aligned */}
           <div className="flex-shrink-0">
             <div className="w-[70px] h-[70px] sm:w-[87px] sm:h-[87px] rounded-full flex items-center justify-center">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
-                src="/kamo-logo.svg" 
-                alt="KAMO Athletics Logo" 
+                src={logo} 
+                alt={logoAlt} 
                 className="w-full h-full object-contain"
               />
             </div>
@@ -42,41 +79,23 @@ export default function Header() {
 
           {/* Desktop Navigation - Right Aligned */}
           <div className="hidden md:flex items-center gap-8">
-            <button 
-              onClick={() => scrollToSection('home')}
-              className="relative text-white text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:text-gray-500 transition-colors cursor-pointer"
-            >
-              HOME
-            </button>
-            <button 
-              onClick={() => scrollToSection('instagram')}
-              className="text-[#f2f2f2] text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:text-gray-500 transition-colors cursor-pointer"
-            >
-              INSTAGRAM
-            </button>
-            <button 
-              onClick={() => scrollToSection('schedule')}
-              className="text-[#f2f2f2] text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:text-gray-500 transition-colors cursor-pointer"
-            >
-              SCHEDULE
-            </button>
-            <button 
-              onClick={() => scrollToSection('about')}
-              className="text-[#f2f2f2] text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:text-gray-500 transition-colors cursor-pointer"
-            >
-              ABOUT
-            </button>
-            <button 
-              onClick={() => scrollToSection('contact')}
-              className="text-[#f2f2f2] text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:text-gray-500 transition-colors cursor-pointer"
-            >
-              CONTACT
-            </button>
+            {navigation.map((item, index) => (
+              <button 
+                key={index}
+                onClick={() => scrollToSection(item.sectionId)}
+                className={`text-[#f2f2f2] text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:text-gray-500 transition-colors cursor-pointer ${
+                  index === 0 ? 'text-white' : ''
+                }`}
+              >
+                {item.title}
+              </button>
+            ))}
             <button 
               onClick={scrollToContact}
-              className="bg-[#0b3a86] text-white px-6 py-3 text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:bg-[#0a2d6b] transition-colors cursor-pointer"
+              className="text-white px-6 py-3 text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:opacity-80 transition-opacity cursor-pointer"
+              style={{ backgroundColor: primaryColor }}
             >
-              CALL NOW
+              {ctaButtonText}
             </button>
           </div>
 
@@ -102,41 +121,23 @@ export default function Header() {
         {isMenuOpen && (
           <div className="md:hidden bg-[rgba(18,18,18,0.98)] border-t border-gray-700">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <button 
-                onClick={() => scrollToSection('home')}
-                className="block w-full text-left px-3 py-2 text-white text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:text-gray-500 transition-colors cursor-pointer"
-              >
-                HOME
-              </button>
-              <button 
-                onClick={() => scrollToSection('instagram')}
-                className="block w-full text-left px-3 py-2 text-[#f2f2f2] text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:text-gray-500 hover:bg-gray-800 transition-colors cursor-pointer"
-              >
-                INSTAGRAM
-              </button>
-              <button 
-                onClick={() => scrollToSection('schedule')}
-                className="block w-full text-left px-3 py-2 text-[#f2f2f2] text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:text-gray-500 hover:bg-gray-800 transition-colors cursor-pointer"
-              >
-                SCHEDULE
-              </button>
-              <button 
-                onClick={() => scrollToSection('about')}
-                className="block w-full text-left px-3 py-2 text-[#f2f2f2] text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:text-gray-500 hover:bg-gray-800 transition-colors cursor-pointer"
-              >
-                ABOUT
-              </button>
-              <button 
-                onClick={() => scrollToSection('contact')}
-                className="block w-full text-left px-3 py-2 text-[#f2f2f2] text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:text-gray-500 hover:bg-gray-800 transition-colors cursor-pointer"
-              >
-                CONTACT
-              </button>
+              {navigation.map((item, index) => (
+                <button 
+                  key={index}
+                  onClick={() => scrollToSection(item.sectionId)}
+                  className={`block w-full text-left px-3 py-2 text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:text-gray-500 hover:bg-gray-800 transition-colors cursor-pointer ${
+                    index === 0 ? 'text-white' : 'text-[#f2f2f2]'
+                  }`}
+                >
+                  {item.title}
+                </button>
+              ))}
               <button 
                 onClick={scrollToContact}
-                className="block w-full text-left mx-3 mt-4 bg-[#0b3a86] text-white px-6 py-3 text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:bg-[#0a2d6b] transition-colors cursor-pointer"
+                className="block w-full text-left mx-3 mt-4 text-white px-6 py-3 text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:opacity-80 transition-opacity cursor-pointer"
+                style={{ backgroundColor: primaryColor }}
               >
-                CALL NOW
+                {ctaButtonText}
               </button>
             </div>
           </div>

@@ -1,22 +1,69 @@
-export default function Footer() {
+interface FooterData {
+  companyName?: string;
+  address?: string[];
+  hours?: string[];
+  followTitle?: string;
+  socialLinks?: Array<{
+    platform: string;
+    url: string;
+  }>;
+  contactTitle?: string;
+  phone?: string;
+  email?: string;
+  copyrightText?: string;
+  backgroundColor?: { hex?: string };
+  textColor?: { hex?: string };
+}
+
+interface FooterProps {
+  data?: FooterData;
+}
+
+export default function Footer({ data }: FooterProps) {
+  // Fallback values (original content)
+  const companyName = data?.companyName || "KAMO ATHLETICS";
+  const address = data?.address || ["123 Fitness Street", "Mountain View, CA 94041"];
+  const hours = data?.hours || ["Mon-Fri: 5AM-10PM", "Sat-Sun: 7AM-8PM"];
+  const followTitle = data?.followTitle || "FOLLOW";
+  const socialLinks = data?.socialLinks || [
+    { platform: "Instagram", url: "#" },
+    { platform: "Facebook", url: "#" }
+  ];
+  const contactTitle = data?.contactTitle || "CONTACT";
+  const phone = data?.phone || "(000) 000-0000";
+  const email = data?.email || "info@kamoathletics.com";
+  const copyrightText = data?.copyrightText || "© 2024 Kamo Athletics. All rights reserved.";
+  const backgroundColor = data?.backgroundColor?.hex || '#000000';
+  const textColor = data?.textColor?.hex || '#6b7280';
   return (
-    <footer className="bg-neutral-950 py-16 px-4 md:px-8 lg:px-[120px]">
+    <footer 
+      className="py-16 px-4 md:px-8 lg:px-[120px]"
+      style={{ backgroundColor }}
+    >
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col gap-[31.99px]">
           {/* Main Footer Content */}
           <div className="flex flex-col lg:flex-row gap-16 items-start justify-center">
             {/* Company Info */}
             <div className="w-full lg:w-[357.33px]">
-              <h4 className="text-[#f2f2f2] text-[20px] leading-[32px] tracking-[-0.5px] uppercase font-bold mb-[55.3px]">
-                KAMO ATHLETICS
+              <h4 className="text-[#f2f2f2] text-[16px] sm:text-[18px] md:text-[20px] leading-[1.6] tracking-[-0.5px] uppercase font-bold mb-[32px] sm:mb-[40px] md:mb-[55.3px]">
+                {companyName}
               </h4>
-              <div className="text-gray-500 text-[16px] leading-[25.6px] mb-[63.18px]">
-                <p>123 Fitness Street</p>
-                <p>Mountain View, CA 94041</p>
+              <div 
+                className="text-[16px] leading-[25.6px] mb-[63.18px]"
+                style={{ color: textColor }}
+              >
+                {address.map((line, index) => (
+                  <p key={index}>{line}</p>
+                ))}
               </div>
-              <div className="text-gray-500 text-[15.875px] leading-[25.6px]">
-                <p>Mon-Fri: 5AM-10PM</p>
-                <p>Sat-Sun: 7AM-8PM</p>
+              <div 
+                className="text-[15.875px] leading-[25.6px]"
+                style={{ color: textColor }}
+              >
+                {hours.map((line, index) => (
+                  <p key={index}>{line}</p>
+                ))}
               </div>
             </div>
 
@@ -24,30 +71,42 @@ export default function Footer() {
             <div className="flex flex-col lg:flex-row gap-8 w-full lg:w-[714.67px]">
               {/* Follow */}
               <div className="w-full lg:w-[341.33px]">
-                <h5 className="text-[#f2f2f2] text-[16px] leading-[25.6px] tracking-[1px] uppercase font-bold mb-[41.59px]">
-                  FOLLOW
+                <h5 className="text-[#f2f2f2] text-[14px] sm:text-[15px] md:text-[16px] leading-[1.6] tracking-[1px] uppercase font-bold mb-[24px] sm:mb-[32px] md:mb-[41.59px]">
+                  {followTitle}
                 </h5>
                 <div className="flex flex-col gap-[33.59px]">
-                  <a href="#" className="text-gray-500 text-[16px] leading-[25.6px] hover:text-white transition-colors">
-                    Instagram
-                  </a>
-                  <a href="#" className="text-gray-500 text-[16px] leading-[25.6px] hover:text-white transition-colors">
-                    Facebook
-                  </a>
+                  {socialLinks.map((link, index) => (
+                    <a 
+                      key={index}
+                      href={link.url} 
+                      className="text-[16px] leading-[25.6px] hover:text-white transition-colors"
+                      style={{ color: textColor }}
+                    >
+                      {link.platform}
+                    </a>
+                  ))}
                 </div>
               </div>
 
               {/* Contact */}
               <div className="w-full lg:w-[341.34px]">
-                <h5 className="text-[#f2f2f2] text-[16px] leading-[25.6px] tracking-[1px] uppercase font-bold mb-[41.59px]">
-                  CONTACT
+                <h5 className="text-[#f2f2f2] text-[14px] sm:text-[15px] md:text-[16px] leading-[1.6] tracking-[1px] uppercase font-bold mb-[24px] sm:mb-[32px] md:mb-[41.59px]">
+                  {contactTitle}
                 </h5>
                 <div className="flex flex-col gap-[33.59px]">
-                  <a href="tel:(000)000-0000" className="text-gray-500 text-[16px] leading-[25.6px] hover:text-white transition-colors">
-                    (000) 000-0000
+                  <a 
+                    href={`tel:${phone.replace(/[^\d]/g, '')}`} 
+                    className="text-[16px] leading-[25.6px] hover:text-white transition-colors"
+                    style={{ color: textColor }}
+                  >
+                    {phone}
                   </a>
-                  <a href="mailto:info@kamoathletics.com" className="text-gray-500 text-[16px] leading-[25.6px] hover:text-white transition-colors">
-                    info@kamoathletics.com
+                  <a 
+                    href={`mailto:${email}`} 
+                    className="text-[16px] leading-[25.6px] hover:text-white transition-colors"
+                    style={{ color: textColor }}
+                  >
+                    {email}
                   </a>
                 </div>
               </div>
@@ -57,8 +116,11 @@ export default function Footer() {
           {/* Copyright */}
           <div className="border-t border-[#333333] pt-[33px]">
             <div className="text-center">
-              <p className="text-gray-500 text-[16px] leading-[25.6px]">
-                © 2024 Kamo Athletics. All rights reserved.
+              <p 
+                className="text-[16px] leading-[25.6px]"
+                style={{ color: textColor }}
+              >
+                {copyrightText}
               </p>
             </div>
           </div>
