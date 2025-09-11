@@ -21,6 +21,10 @@ export default function Header() {
     setIsMenuOpen(false);
   };
 
+  const scrollToContact = () => {
+    scrollToSection('contact');
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-[5px] backdrop-filter bg-[rgba(18,18,18,0.95)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,7 +72,10 @@ export default function Header() {
             >
               CONTACT
             </button>
-            <button className="bg-[#0b3a86] text-white px-6 py-3 text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:bg-[#0a2d6b] transition-colors">
+            <button 
+              onClick={scrollToContact}
+              className="bg-[#0b3a86] text-white px-6 py-3 text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:bg-[#0a2d6b] transition-colors cursor-pointer"
+            >
               CALL NOW
             </button>
           </div>
@@ -125,7 +132,10 @@ export default function Header() {
               >
                 CONTACT
               </button>
-              <button className="block w-full text-left mx-3 mt-4 bg-[#0b3a86] text-white px-6 py-3 text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:bg-[#0a2d6b] transition-colors">
+              <button 
+                onClick={scrollToContact}
+                className="block w-full text-left mx-3 mt-4 bg-[#0b3a86] text-white px-6 py-3 text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:bg-[#0a2d6b] transition-colors cursor-pointer"
+              >
                 CALL NOW
               </button>
             </div>

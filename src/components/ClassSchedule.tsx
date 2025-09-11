@@ -1,4 +1,16 @@
+'use client';
+
 export default function ClassSchedule() {
+  const scrollToContact = () => {
+    const element = document.getElementById('contact');
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <section id="schedule" className="bg-gradient-to-b from-[#121212] from-[88.942%] to-[#0b3a86] py-24 px-4 md:px-8 lg:px-[152px]">
       <div className="max-w-[1265px] mx-auto">
@@ -55,7 +67,10 @@ export default function ClassSchedule() {
             </div>
 
             {/* CTA Button */}
-            <button className="bg-[#0b3a86] text-white px-10 py-4 text-[13.6px] tracking-[1px] uppercase font-bold hover:bg-[#0a2d6b] transition-colors w-fit">
+            <button 
+              onClick={scrollToContact}
+              className="bg-[#0b3a86] text-white px-10 py-4 text-[13.6px] tracking-[1px] uppercase font-bold hover:bg-[#0a2d6b] transition-colors w-fit cursor-pointer"
+            >
               CONTACT US TODAY
             </button>
           </div>

@@ -1,4 +1,16 @@
+'use client';
+
 export default function Hero() {
+  const scrollToContact = () => {
+    const element = document.getElementById('contact');
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <div 
       id="home"
@@ -19,7 +31,10 @@ export default function Hero() {
           help you reach any goals, both inside and outside the gym
         </p>
         
-        <button className="bg-[#0b3a86] text-white px-10 py-4 text-[13.6px] tracking-[1px] uppercase font-bold hover:bg-[#0a2d6b] transition-colors">
+        <button 
+          onClick={scrollToContact}
+          className="bg-[#0b3a86] text-white px-10 py-4 text-[13.6px] tracking-[1px] uppercase font-bold hover:bg-[#0a2d6b] transition-colors cursor-pointer"
+        >
           CALL NOW
         </button>
       </div>
