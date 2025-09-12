@@ -163,8 +163,8 @@ export default function ClassSchedule({ data }: ClassScheduleProps) {
             </button>
           </div>
 
-          {/* Image */}
-          <div className="flex-1">
+          {/* Image - Hidden on mobile, visible on larger screens */}
+          <div className="hidden lg:flex flex-1">
             <div 
               className="w-full h-[466px] bg-cover bg-center bg-no-repeat rounded-lg"
               style={{ backgroundImage: `url('${scheduleImage}')` }}
