@@ -43,13 +43,13 @@ export default function Contact({ data, teamMembers = [] }: ContactProps) {
   const defaultCoOwners = [
     {
       name: "Nick Peterson",
-      phone: "📞 (000) 000-0001",
-      email: "✉️ nick@example.com"
+      phone: "📞 (805) 791-5779",
+      email: "✉️ kamoathl@gmail.com"
     },
     {
       name: "Andy Newton", 
-      phone: "📞 (000) 000-0002",
-      email: "✉️ andy@example.com"
+      phone: "📞 (816) 718-7374",
+      email: "✉️ kamoathl@gmail.com"
     }
   ];
 
