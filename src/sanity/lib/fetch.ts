@@ -1,13 +1,13 @@
 import { client } from './client'
 
 // Helper function to fetch data with error handling and Next.js cache tags
-export async function sanityFetch<T = any>({
+export async function sanityFetch<T = unknown>({
   query,
   params = {},
   tags = [],
 }: {
   query: string
-  params?: any
+  params?: Record<string, unknown>
   tags?: string[]
 }): Promise<T> {
   try {

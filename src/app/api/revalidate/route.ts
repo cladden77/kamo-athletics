@@ -21,7 +21,7 @@ async function handleRevalidation(request: NextRequest) {
     if (request.method === 'POST') {
       try {
         body = await request.json()
-      } catch (e) {
+      } catch {
         // If no JSON body, continue with query params
       }
     }
