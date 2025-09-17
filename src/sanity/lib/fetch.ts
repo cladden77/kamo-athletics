@@ -16,9 +16,9 @@ export async function sanityFetch<T = unknown>({
     return await client.fetch<T>(query, params, {
       next: { 
         tags,
-        // In development, cache for shorter time for faster updates
-        // In production, cache for longer but allow revalidation via tags
-        revalidate: isDevelopment ? 10 : 3600, // 10 seconds in dev, 1 hour in prod
+        // In development, disable caching completely for real-time updates
+        // In production, cache but allow revalidation via tags/webhooks
+        revalidate: isDevelopment ? 0 : 60, // No cache in dev, 1 minute in prod
       },
     })
   } catch (error) {

@@ -7,6 +7,6 @@ export const client = createClient({
   dataset,
   apiVersion,
   useCdn: false, // Disabled for ISR and tag-based revalidation
-  perspective: 'published',
+  perspective: process.env.NODE_ENV === 'development' ? 'previewDrafts' : 'published',
   token: process.env.SANITY_API_TOKEN,
 })
