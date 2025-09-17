@@ -35,21 +35,21 @@ export default function Contact({ data, teamMembers = [] }: ContactProps) {
   // Filter team members who have contact info to display as co-owners
   const coOwners = teamMembers.filter(member => member.phone || member.email).map(member => ({
     name: `${member.firstName} ${member.lastName}`,
-    phone: member.phone ? `📞 ${member.phone}` : '',
-    email: member.email ? `✉️ ${member.email}` : ''
+    phone: member.phone || '',
+    email: member.email || ''
   }));
 
   // Original co-owners as fallback
   const defaultCoOwners = [
     {
       name: "Nick Peterson",
-      phone: "📞 (805) 791-5779",
-      email: "✉️ kamoathl@gmail.com"
+      phone: "(805) 791-5779",
+      email: "kamoathl@gmail.com"
     },
     {
       name: "Andy Newton", 
-      phone: "📞 (816) 718-7374",
-      email: "✉️ kamoathl@gmail.com"
+      phone: "(816) 718-7374",
+      email: "kamoathl@gmail.com"
     }
   ];
 
@@ -97,7 +97,13 @@ export default function Contact({ data, teamMembers = [] }: ContactProps) {
                       className="text-[15px] leading-[25.6px] mb-2"
                       style={{ color: cardTextColor }}
                     >
-                      {owner.phone}
+                      📞 <a 
+                        href={`tel:${owner.phone.replace(/[^\d+]/g, '')}`}
+                        className="hover:underline transition-all duration-200"
+                        style={{ color: cardTextColor }}
+                      >
+                        {owner.phone}
+                      </a>
                     </p>
                   )}
                   {owner.email && (
@@ -105,7 +111,13 @@ export default function Contact({ data, teamMembers = [] }: ContactProps) {
                       className="text-[15.75px] leading-[25.6px]"
                       style={{ color: cardTextColor }}
                     >
-                      {owner.email}
+                      ✉️ <a 
+                        href={`mailto:${owner.email}`}
+                        className="hover:underline transition-all duration-200"
+                        style={{ color: cardTextColor }}
+                      >
+                        {owner.email}
+                      </a>
                     </p>
                   )}
                 </div>
