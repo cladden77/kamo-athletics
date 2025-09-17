@@ -41,21 +41,21 @@ export default function About({ data, teamMembers = [] }: AboutProps) {
     {
       firstName: "NICK",
       lastName: "Petersen",
-      role: "HEAD COACH",
+      role: "HEAD COACH | OWNER",
       image: { asset: { _ref: "image-nick", _type: "reference" }, alt: "Nick Petersen" },
       description: "Nick is a former CrossFit Games Team Athlete (2022). He grew up outside LA and found his way to Kansas playing college baseball. He defines himself as a Servant of Christ and you can see this manifested in his kindness, compassion and work ethic. In his free time you can find him on his farm with his wife and two children."
     },
     {
       firstName: "ANDY",
       lastName: "NEWTON", 
-      role: "HEAD COACH",
+      role: "OWNER",
       image: { asset: { _ref: "image-andy", _type: "reference" }, alt: "Andy Newton" },
       description: "Andy is a CrossFit OG. His life revolves around equanimity, sobriety and fitness. As a decorated combat veteran, the efficacies he forged as a warfighter can be found utilized in his every day coaching."
     },
     {
       firstName: "TONYA",
       lastName: "DARYMPLE",
-      role: "HEAD COACH", 
+      role: "COACH", 
       image: { asset: { _ref: "image-tonya", _type: "reference" }, alt: "Tonya Darymple" },
       description: "Tonya began her CrossFit journey in 2013 during her husband's deployment to Afghanistan. During the deployment, she experienced the magic of the CrossFit community as they were a tremendous source of encouragement and support during that challenging time. Fostering community within the framework of the CrossFit methodology is one of her greatest joys."
     }

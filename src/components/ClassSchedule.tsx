@@ -150,6 +150,8 @@ export default function ClassSchedule({ data }: ClassScheduleProps) {
                     {weekendSchedule.times}
                   </p>
                 </div>
+
+                <p className="text-[14.4px] tracking-[0.5px] leading-[23px]">*Memberships include 24-hour access</p>
               </div>
             </div>
 
