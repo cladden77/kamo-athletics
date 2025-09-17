@@ -42,8 +42,8 @@ export default function Header({ siteSettings }: HeaderProps) {
     setIsMenuOpen(false);
   };
 
-  const scrollToContact = () => {
-    scrollToSection('contact');
+  const callAndy = () => {
+    window.location.href = 'tel:8167187374';
   };
 
   // Fallback values (original content)
@@ -91,7 +91,7 @@ export default function Header({ siteSettings }: HeaderProps) {
               </button>
             ))}
             <button 
-              onClick={scrollToContact}
+              onClick={callAndy}
               className="text-white px-6 py-3 text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:opacity-80 transition-opacity cursor-pointer"
               style={{ backgroundColor: primaryColor }}
             >
@@ -133,7 +133,7 @@ export default function Header({ siteSettings }: HeaderProps) {
                 </button>
               ))}
               <button 
-                onClick={scrollToContact}
+                onClick={callAndy}
                 className="block w-full text-left mx-3 mt-4 text-white px-6 py-3 text-[14.4px] tracking-[1px] uppercase font-['Segoe_UI',_sans-serif] hover:opacity-80 transition-opacity cursor-pointer"
                 style={{ backgroundColor: primaryColor }}
               >

@@ -23,14 +23,8 @@ interface HeroProps {
 }
 
 export default function Hero({ data }: HeroProps) {
-  const scrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+  const callAndy = () => {
+    window.location.href = 'tel:8167187374';
   };
 
   // Fallback values (original content)
@@ -79,7 +73,7 @@ export default function Hero({ data }: HeroProps) {
         </p>
         
         <button 
-          onClick={scrollToContact}
+          onClick={callAndy}
           className="text-white px-10 py-4 text-[13.6px] tracking-[1px] uppercase font-bold hover:opacity-80 transition-opacity cursor-pointer"
           style={{ backgroundColor: buttonColor }}
         >
