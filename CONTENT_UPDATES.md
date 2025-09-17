@@ -1,20 +1,34 @@
 # Content Updates Guide
 
-## How to See Your Sanity Content Changes
+## 🚀 **IMPROVED: Instant Content Updates with Webhooks**
 
-### Automatic Updates (Development)
-- **Changes now appear within 10 seconds** after publishing in Sanity
-- The website automatically checks for new content every 10 seconds
-- No action needed - just wait a moment after publishing
+Your site is now configured for **instant content updates** when you publish changes in Sanity Studio!
 
-### Manual Refresh (If Needed)
-If you need to force an immediate update, you can:
+### How It Works
+- **Instant Updates**: Changes appear immediately after clicking "Publish" in Sanity
+- **Smart Caching**: Uses Next.js revalidation to update only the content that changed
+- **Automatic Webhooks**: Sanity automatically tells your site when content is updated
 
-1. **Browser refresh**: Hard refresh your browser (Cmd+Shift+R on Mac, Ctrl+Shift+R on Windows)
-2. **API revalidation**: Visit this URL to force a content refresh:
+### Quick Test
+1. Go to `/studio` and edit any content
+2. Click **"Publish"** (not just save)
+3. Check your main site - changes should appear within **1-2 seconds**!
+
+### Manual Refresh Options
+If you need to force an update manually:
+
+1. **Force all content refresh** (click this link or visit in browser):
    ```
    http://localhost:3000/api/revalidate?secret=dev-revalidate
    ```
+
+2. **Force specific content type**:
+   ```
+   http://localhost:3000/api/revalidate?secret=dev-revalidate&tag=hero
+   ```
+   (Replace `hero` with: `about`, `teamMember`, `schedule`, `contact`, `footer`, or `siteSettings`)
+
+> 💡 **Pro Tip**: You can now visit these URLs directly in your browser to force content updates!
 
 ### Publishing in Sanity Studio
 1. Go to `/studio` in your browser

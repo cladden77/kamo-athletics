@@ -5,7 +5,7 @@ import ClassSchedule from '@/components/ClassSchedule';
 import About from '@/components/About';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
-import { sanityFetch } from '../../sanity/client';
+import { sanityFetch } from '@/sanity/lib/fetch';
 import {
   heroQuery,
   aboutQuery,

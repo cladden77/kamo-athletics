@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sanityFetch } from '../../../../sanity/client'
+import { sanityFetch } from '@/sanity/lib/fetch'
 import { heroQuery } from '../../../../sanity/queries'
 
 export async function GET(request: NextRequest) {
