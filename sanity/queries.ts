@@ -1,6 +1,6 @@
 // GROQ queries for fetching data from Sanity
 
-export const heroQuery = `*[_type == "hero"][0]{
+export const heroQuery = `*[_type == "hero"] | order(_updatedAt desc)[0]{
   title,
   subtitle,
   buttonText,
