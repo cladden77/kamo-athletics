@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
       token: process.env.SANITY_API_TOKEN,
     })
 
-    let query = `*[_type == "${type}"][0]`
+    const query = `*[_type == "${type}"][0]`
     
     // Fetch with absolutely no caching
     const data = await testClient.fetch(query, {}, {
