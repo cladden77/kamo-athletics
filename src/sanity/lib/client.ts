@@ -8,5 +8,6 @@ export const client = createClient({
   apiVersion,
   useCdn: false, // Disabled for ISR and tag-based revalidation
   perspective: 'published',
-  token: process.env.SANITY_API_TOKEN,
+  // Temporarily disable token for testing
+  // token: process.env.SANITY_API_TOKEN,
 })
