@@ -25,8 +25,8 @@ export default function Contact({ data, teamMembers = [] }: ContactProps) {
   // Fallback values (original content)
   const heading = data?.heading || "GET IN CONTACT WITH US";
   const coOwnersTitle = data?.coOwnersTitle || "CO-OWNERS";
-  const address = data?.address || "19915 West 161st Street, Olathe, KS 66062";
-  const mapPlaceholder = data?.mapPlaceholder || "Map Location";
+  const address = data?.address || "20500 W 185th Terrace, Spring Hill, Kansas 66083";
+  // const mapPlaceholder = data?.mapPlaceholder || "Map Location"; // No longer needed with actual map
   // Background is handled via CSS classes
   const textColor = data?.textColor?.hex || '#f2f2f2';
   const cardBackgroundColor = data?.cardBackgroundColor?.hex || '#f2f2f2';
@@ -127,11 +127,17 @@ export default function Contact({ data, teamMembers = [] }: ContactProps) {
 
           {/* Map/Location */}
           <div className="flex flex-col items-center w-full lg:w-[432px]">
-            <div 
-              className="w-full h-[361px] rounded-lg flex items-center justify-center mb-4"
-              style={{ backgroundColor: '#0b3a86' }}
-            >
-              <span className="text-white text-lg font-medium">{mapPlaceholder}</span>
+            <div className="w-full h-[361px] rounded-lg overflow-hidden mb-4">
+              <iframe
+                src="https://maps.google.com/maps?width=100%25&height=600&hl=en&q=20500%20W%20185th%20Terrace,%20Spring%20Hill,%20Kansas%2066083&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Kamo Athletics Location"
+              />
             </div>
             <div className="text-center">
               <p 
