@@ -42,7 +42,7 @@ export default function Contact({ data, teamMembers = [] }: ContactProps) {
   // Original co-owners as fallback
   const defaultCoOwners = [
     {
-      name: "Nick Peterson",
+      name: "Nick Petersen",
       phone: "(805) 791-5779",
       email: "kamoathl@gmail.com"
     },
