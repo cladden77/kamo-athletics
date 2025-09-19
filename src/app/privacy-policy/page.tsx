@@ -1,13 +1,86 @@
 import { Metadata } from 'next';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { sanityFetch } from '@/sanity/lib/fetch';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | KAMO Athletics',
   description: 'Privacy policy for KAMO Athletics - how we collect, use, and protect your personal information.',
 };
 
-export default function PrivacyPolicy() {
+// Type definitions
+interface SiteSettings {
+  logo?: {
+    asset: {
+      _ref: string;
+      _type: string;
+    };
+    alt?: string;
+  };
+  navigation?: Array<{
+    title: string;
+    sectionId: string;
+  }>;
+  ctaButtonText?: string;
+  primaryColor?: { hex?: string };
+}
+
+interface FooterData {
+  companyName?: string;
+  address?: string[];
+  hours?: string[];
+  followTitle?: string;
+  socialLinks?: Array<{
+    platform: string;
+    url: string;
+  }>;
+  contactTitle?: string;
+  phone?: string;
+  email?: string;
+  copyrightText?: string;
+  backgroundColor?: { hex?: string };
+  textColor?: { hex?: string };
+}
+
+// Queries for header and footer data
+const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0]{
+  title,
+  description,
+  logo{
+    asset->,
+    alt
+  },
+  navigation,
+  ctaButtonText,
+  primaryColor,
+  secondaryColor
+}`;
+
+const FOOTER_QUERY = `*[_type == "footer"][0]{
+  companyName,
+  address,
+  hours,
+  followTitle,
+  socialLinks,
+  contactTitle,
+  phone,
+  email,
+  copyrightText,
+  backgroundColor,
+  textColor
+}`;
+
+export default async function PrivacyPolicy() {
+  // Fetch data for header and footer
+  const [siteSettings, footerData] = await Promise.all([
+    sanityFetch<SiteSettings>({ query: SITE_SETTINGS_QUERY, tags: ['siteSettings'] }),
+    sanityFetch<FooterData>({ query: FOOTER_QUERY, tags: ['footer'] }),
+  ]);
+
   return (
     <div className="min-h-screen bg-white">
+      <Header siteSettings={siteSettings} />
+      
       {/* Header spacing to account for fixed navigation */}
       <div className="pt-20 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -113,6 +186,8 @@ export default function PrivacyPolicy() {
           </div>
         </div>
       </div>
+      
+      <Footer data={footerData} />
     </div>
   );
 }
