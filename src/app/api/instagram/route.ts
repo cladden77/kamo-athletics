@@ -1,18 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Instagram Basic Display API integration
-// Note: This requires setting up Instagram Basic Display API and getting access tokens
+// Instagram Graph API integration using Facebook User Token -> Page Token -> Instagram Posts flow
+// This approach uses a long-lived Facebook user token to mint fresh page tokens for each request
 export async function GET() {
   try {
-    // Environment variables needed:
-    // INSTAGRAM_ACCESS_TOKEN - Long-lived Instagram Basic Display API access token
-    // INSTAGRAM_USER_ID - Instagram user ID for kamoathletics account
+    // Environment variables needed (server-only, no NEXT_PUBLIC_):
+    // FB_APP_ID - Facebook App ID
+    // FB_APP_SECRET - Facebook App Secret  
+    // FB_LONG_LIVED_USER_TOKEN - Long-lived Facebook user token (60-day)
+    // FB_PAGE_ID - Facebook Page ID linked to Instagram Business account
     
-    const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
-    const userId = process.env.INSTAGRAM_USER_ID;
+    const appId = process.env.FB_APP_ID;
+    const appSecret = process.env.FB_APP_SECRET;
+    const userToken = process.env.FB_LONG_LIVED_USER_TOKEN;
+    const pageId = process.env.FB_PAGE_ID;
 
-    if (!accessToken || !userId) {
-      console.log('Instagram API credentials not configured, returning fallback data');
+    if (!appId || !appSecret || !userToken || !pageId) {
+      console.log('Facebook/Instagram API credentials not configured, returning fallback data');
+      console.log('Missing credentials:', { 
+        appId: !!appId, 
+        appSecret: !!appSecret, 
+        userToken: !!userToken, 
+        pageId: !!pageId 
+      });
       
       // Return fallback data that matches KAMO Athletics style
       return NextResponse.json({
@@ -85,31 +95,91 @@ export async function GET() {
       });
     }
 
-    // Fetch recent media from Instagram Basic Display API
-    const response = await fetch(
-      `https://graph.instagram.com/${userId}/media?fields=id,media_url,media_type,caption,permalink,timestamp&access_token=${accessToken}&limit=8`,
+    // Step 1: Get fresh page access token using long-lived user token
+    console.log('Attempting to get page token for page ID:', pageId);
+    console.log('Using user token (first 20 chars):', userToken?.substring(0, 20) + '...');
+    
+    const pageTokenResponse = await fetch(
+      `https://graph.facebook.com/v18.0/${pageId}?fields=access_token&access_token=${userToken}`,
       {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
-        // Cache for 5 minutes to avoid hitting rate limits
-        next: { revalidate: 300 }
       }
     );
 
-    if (!response.ok) {
-      throw new Error(`Instagram API error: ${response.status}`);
+    if (!pageTokenResponse.ok) {
+      const errorText = await pageTokenResponse.text();
+      console.error(`Failed to get page token: ${pageTokenResponse.status}`, errorText);
+      throw new Error(`Failed to get page token: ${pageTokenResponse.status} - ${errorText}`);
     }
 
-    const data = await response.json();
+    const pageTokenData = await pageTokenResponse.json();
+    console.log('Page token response:', pageTokenData);
+    const pageAccessToken = pageTokenData.access_token;
 
-    // Filter out any posts without media_url and ensure we have proper data
-    const filteredPosts = data.data?.filter((post: { media_url?: string }) => post.media_url) || [];
+    if (!pageAccessToken) {
+      throw new Error('No page access token received');
+    }
+
+    // Step 2: Get Instagram Business Account ID from the page
+    const instagramAccountResponse = await fetch(
+      `https://graph.facebook.com/v18.0/${pageId}?fields=instagram_business_account&access_token=${pageAccessToken}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (!instagramAccountResponse.ok) {
+      throw new Error(`Failed to get Instagram account: ${instagramAccountResponse.status}`);
+    }
+
+    const instagramAccountData = await instagramAccountResponse.json();
+    const instagramBusinessAccountId = instagramAccountData.instagram_business_account?.id;
+
+    if (!instagramBusinessAccountId) {
+      throw new Error('No Instagram Business Account found for this page');
+    }
+
+    // Step 3: Fetch recent media from Instagram Business Account
+    // Include thumbnail_url for better compatibility
+    const mediaResponse = await fetch(
+      `https://graph.facebook.com/v18.0/${instagramBusinessAccountId}/media?fields=id,media_url,thumbnail_url,media_type,caption,permalink,timestamp&access_token=${pageAccessToken}&limit=8`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // Cache for 30 minutes to avoid rate limits
+        next: { revalidate: 1800 }
+      }
+    );
+
+    if (!mediaResponse.ok) {
+      throw new Error(`Instagram API error: ${mediaResponse.status}`);
+    }
+
+    const mediaData = await mediaResponse.json();
+
+    // Process posts and prefer thumbnail_url for better compatibility
+    const processedPosts = mediaData.data?.map((post: any) => {
+      // Use thumbnail_url for videos, media_url for images
+      const imageUrl = post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url;
+      
+      return {
+        ...post,
+        media_url: imageUrl || post.media_url // fallback to media_url if no thumbnail
+      };
+    }).filter((post: { media_url?: string }) => post.media_url) || [];
 
     return NextResponse.json({
-      data: filteredPosts,
-      total: filteredPosts.length
+      data: processedPosts,
+      total: processedPosts.length,
+      cached_until: new Date(Date.now() + 1800000).toISOString() // 30 minutes from now
     });
 
   } catch (error) {
@@ -123,7 +193,7 @@ export async function GET() {
   }
 }
 
-// Optional: Add POST method to refresh access token if needed
+// Optional: Add POST method to refresh long-lived user token if needed
 export async function POST(request: NextRequest) {
   try {
     const { refresh_token } = await request.json();
@@ -135,9 +205,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Refresh the Instagram access token
+    const appId = process.env.FB_APP_ID;
+    const appSecret = process.env.FB_APP_SECRET;
+
+    if (!appId || !appSecret) {
+      return NextResponse.json(
+        { error: 'Facebook app credentials not configured' },
+        { status: 500 }
+      );
+    }
+
+    // Refresh the long-lived Facebook user token (extends from 60 days to another 60 days)
     const response = await fetch(
-      `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${refresh_token}`,
+      `https://graph.facebook.com/v18.0/oauth/access_token?grant_type=fb_exchange_token&client_id=${appId}&client_secret=${appSecret}&fb_exchange_token=${refresh_token}`,
       {
         method: 'GET',
       }
@@ -152,10 +232,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       access_token: data.access_token,
       expires_in: data.expires_in,
+      token_type: data.token_type,
     });
 
   } catch (error) {
-    console.error('Error refreshing Instagram token:', error);
+    console.error('Error refreshing Facebook user token:', error);
     
     return NextResponse.json(
       { error: 'Failed to refresh access token' },

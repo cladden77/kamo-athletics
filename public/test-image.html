@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instagram Image Test</title>
+</head>
+<body>
+    <h1>Instagram Image Test</h1>
+    <p>Testing if Instagram images load through our proxy:</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(2, 300px); gap: 10px;">
+        <div>
+            <h3>Via Proxy</h3>
+            <img src="/api/image-proxy?url=https%3A%2F%2Fscontent.cdninstagram.com%2Fv%2Ft51.71878-15%2F537369817_1283492529888643_2564303714569293084_n.jpg%3Fstp%3Ddst-jpg_e35_tt6%26_nc_cat%3D101%26ccb%3D1-7%26_nc_sid%3D18de74%26_nc_ohc%3DCsIaxHWfL9MQ7kNvwFKBqeu%26_nc_oc%3DAdlRH4EsN8Ul4q6HJgdx5VXDZc-v8eUBIar6gvUoTdpUis8e7hv4uPkK2dAGpfNAKycxJEdYPqOx7aEfMAOloxMQ%26_nc_zt%3D23%26_nc_ht%3Dscontent.cdninstagram.com%26edm%3DAM6HXa8EAAAA%26_nc_gid%3Dd69H2y8qEUpXanR84V1xMQ%26oh%3D00_AfbufQPGaog6q6u3buCwztrHQl9mJjsaZWipF1_MbttOEw%26oe%3D68D37447" 
+                 style="width: 300px; height: 300px; object-fit: cover; border: 2px solid green;" 
+                 onload="console.log('✅ Proxy image loaded')" 
+                 onerror="console.log('❌ Proxy image failed')">
+        </div>
+        
+        <div>
+            <h3>Direct (should fail)</h3>
+            <img src="https://scontent.cdninstagram.com/v/t51.71878-15/537369817_1283492529888643_2564303714569293084_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=101&ccb=1-7&_nc_sid=18de74&_nc_ohc=CsIaxHWfL9MQ7kNvwFKBqeu&_nc_oc=AdlRH4EsN8Ul4q6HJgdx5VXDZc-v8eUBIar6gvUoTdpUis8e7hv4uPkK2dAGpfNAKycxJEdYPqOx7aEfMAOloxMQ&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=d69H2y8qEUpXanR84V1xMQ&oh=00_AfbufQPGaog6q6u3buCwztrHQl9mJjsaZWipF1_MbttOEw&oe=68D37447" 
+                 style="width: 300px; height: 300px; object-fit: cover; border: 2px solid red;" 
+                 onload="console.log('✅ Direct image loaded')" 
+                 onerror="console.log('❌ Direct image failed')">
+        </div>
+    </div>
+    
+    <script>
+        console.log('Test page loaded. Check if images appear above.');
+    </script>
+</body>
+</html>

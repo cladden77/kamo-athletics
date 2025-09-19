@@ -98,7 +98,8 @@ export default function InstagramGallery() {
         
         const data = await response.json();
         setPosts(data.data || fallbackPosts);
-      } catch {
+      } catch (error) {
+        console.log('Error fetching Instagram posts:', error);
         console.log('Using fallback Instagram posts');
         setPosts(fallbackPosts);
         setError(null); // Don't show error for fallback
@@ -150,12 +151,33 @@ export default function InstagramGallery() {
             rel="noopener noreferrer"
             className="block aspect-square relative overflow-hidden group cursor-pointer"
           >
-            <div 
-              className="w-full h-full bg-cover bg-center bg-no-repeat transition-transform group-hover:scale-105"
-              style={{ backgroundImage: `url(${post.media_url})` }}
-            >
+            <div className="w-full h-full relative overflow-hidden">
+              <img 
+                src={post.media_url.startsWith('data:') ? post.media_url : `/api/image-proxy?url=${encodeURIComponent(post.media_url)}`}
+                alt={post.caption || 'Instagram post'}
+                className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                loading="lazy"
+                style={{ 
+                  display: 'block',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  backgroundColor: 'transparent'
+                }}
+                onError={(e) => {
+                  console.error('Failed to load Instagram image');
+                  const target = e.target as HTMLImageElement;
+                  target.style.backgroundColor = '#f56565';
+                  target.style.color = 'white';
+                  target.style.display = 'flex';
+                  target.style.alignItems = 'center';
+                  target.style.justifyContent = 'center';
+                  target.style.fontSize = '12px';
+                  target.innerHTML = 'Image failed';
+                }}
+              />
               {post.caption && (
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-300 flex items-center justify-center p-4">
+                <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-300 flex items-center justify-center p-4 pointer-events-none">
                   <span className="text-white text-sm font-bold text-center uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {post.caption.length > 100 ? `${post.caption.substring(0, 100)}...` : post.caption}
                   </span>
@@ -176,12 +198,33 @@ export default function InstagramGallery() {
             rel="noopener noreferrer"
             className="aspect-square relative overflow-hidden group cursor-pointer"
           >
-            <div 
-              className="w-full h-full bg-cover bg-center bg-no-repeat transition-transform group-hover:scale-105"
-              style={{ backgroundImage: `url(${post.media_url})` }}
-            >
+            <div className="w-full h-full relative overflow-hidden">
+              <img 
+                src={post.media_url.startsWith('data:') ? post.media_url : `/api/image-proxy?url=${encodeURIComponent(post.media_url)}`}
+                alt={post.caption || 'Instagram post'}
+                className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                loading="lazy"
+                style={{ 
+                  display: 'block',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  backgroundColor: 'transparent'
+                }}
+                onError={(e) => {
+                  console.error('Failed to load Instagram image');
+                  const target = e.target as HTMLImageElement;
+                  target.style.backgroundColor = '#f56565';
+                  target.style.color = 'white';
+                  target.style.display = 'flex';
+                  target.style.alignItems = 'center';
+                  target.style.justifyContent = 'center';
+                  target.style.fontSize = '12px';
+                  target.innerHTML = 'Image failed';
+                }}
+              />
               {post.caption && (
-                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-300 flex items-center justify-center p-4">
+                <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-70 transition-all duration-300 flex items-center justify-center p-4 pointer-events-none">
                   <span className="text-white text-sm font-bold text-center uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {post.caption.length > 100 ? `${post.caption.substring(0, 100)}...` : post.caption}
                   </span>
