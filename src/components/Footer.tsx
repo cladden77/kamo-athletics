@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 interface FooterData {
   companyName?: string;
   address?: string[];
@@ -116,12 +118,27 @@ export default function Footer({ data }: FooterProps) {
           {/* Copyright */}
           <div className="border-t border-[#333333] pt-[33px]">
             <div className="text-center">
-              <p 
-                className="text-[16px] leading-[25.6px]"
-                style={{ color: textColor }}
-              >
-                {copyrightText}
-              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+                <p 
+                  className="text-[16px] leading-[25.6px]"
+                  style={{ color: textColor }}
+                >
+                  {copyrightText}
+                </p>
+                <span 
+                  className="hidden sm:inline text-[16px]"
+                  style={{ color: textColor }}
+                >
+                  |
+                </span>
+                <Link 
+                  href="/privacy-policy"
+                  className="text-[16px] leading-[25.6px] hover:text-white transition-colors"
+                  style={{ color: textColor }}
+                >
+                  Privacy Policy
+                </Link>
+              </div>
             </div>
           </div>
         </div>
