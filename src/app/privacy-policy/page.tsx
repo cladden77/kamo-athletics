@@ -86,7 +86,7 @@ export default async function PrivacyPolicy() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Page Title */}
           <div className="mb-12">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="pt-20 text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
               Privacy Policy
             </h1>
             <p className="text-lg text-gray-600 leading-relaxed">
@@ -162,13 +162,13 @@ export default async function PrivacyPolicy() {
                 </p>
                 <div className="space-y-2">
                   <p className="text-lg">
-                    <strong>Email:</strong> info@kamoathletics.com
+                    <strong>Email:</strong> kamoathl@gmail.com
                   </p>
                   <p className="text-lg">
-                    <strong>Phone:</strong> (316) 641-2926
+                    <strong>Phone:</strong> (816) 718-7374
                   </p>
                   <p className="text-lg">
-                    <strong>Address:</strong> 525 S West St, Wichita, KS 67213
+                    <strong>Address:</strong> 20500 W 185th terrace, Spring Hill Kansas 66083
                   </p>
                 </div>
               </div>
