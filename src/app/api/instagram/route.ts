@@ -166,7 +166,15 @@ export async function GET() {
     const mediaData = await mediaResponse.json();
 
     // Process posts and prefer thumbnail_url for better compatibility
-    const processedPosts = mediaData.data?.map((post: any) => {
+    const processedPosts = mediaData.data?.map((post: {
+      id: string;
+      media_url?: string;
+      thumbnail_url?: string;
+      media_type: string;
+      caption?: string;
+      permalink: string;
+      timestamp: string;
+    }) => {
       // Use thumbnail_url for videos, media_url for images
       const imageUrl = post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url;
       

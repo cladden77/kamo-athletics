@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import Image from 'next/image';
 
 interface InstagramPost {
   id: string;
@@ -152,18 +153,12 @@ export default function InstagramGallery() {
             className="block aspect-square relative overflow-hidden group cursor-pointer"
           >
             <div className="w-full h-full relative overflow-hidden">
-              <img 
+              <Image
                 src={post.media_url.startsWith('data:') ? post.media_url : `/api/image-proxy?url=${encodeURIComponent(post.media_url)}`}
                 alt={post.caption || 'Instagram post'}
-                className="w-full h-full object-cover transition-transform group-hover:scale-105"
-                loading="lazy"
-                style={{ 
-                  display: 'block',
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  backgroundColor: 'transparent'
-                }}
+                fill
+                className="object-cover transition-transform group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 25vw, 25vw"
                 onError={(e) => {
                   console.error('Failed to load Instagram image');
                   const target = e.target as HTMLImageElement;
@@ -199,18 +194,12 @@ export default function InstagramGallery() {
             className="aspect-square relative overflow-hidden group cursor-pointer"
           >
             <div className="w-full h-full relative overflow-hidden">
-              <img 
+              <Image
                 src={post.media_url.startsWith('data:') ? post.media_url : `/api/image-proxy?url=${encodeURIComponent(post.media_url)}`}
                 alt={post.caption || 'Instagram post'}
-                className="w-full h-full object-cover transition-transform group-hover:scale-105"
-                loading="lazy"
-                style={{ 
-                  display: 'block',
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  backgroundColor: 'transparent'
-                }}
+                fill
+                className="object-cover transition-transform group-hover:scale-105"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 25vw, 25vw"
                 onError={(e) => {
                   console.error('Failed to load Instagram image');
                   const target = e.target as HTMLImageElement;
