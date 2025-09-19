@@ -41,16 +41,16 @@ export default function Footer({ data }: FooterProps) {
       style={{ backgroundColor }}
     >
       <div className="max-w-[1200px] mx-auto">
-        <div className="flex flex-col gap-[31.99px]">
+        <div className="flex flex-col gap-[35px]">
           {/* Main Footer Content */}
           <div className="flex flex-col lg:flex-row gap-16 items-start justify-center">
             {/* Company Info */}
-            <div className="w-full lg:w-[357.33px]">
-              <h4 className="text-[#f2f2f2] text-[16px] sm:text-[18px] md:text-[20px] leading-[1.6] tracking-[-0.5px] uppercase font-bold mb-[32px] sm:mb-[40px] md:mb-[55.3px]">
+            <div className="w-full lg:w-[400px]">
+              <h4 className="text-[#f2f2f2] text-[16px] sm:text-[18px] md:text-[20px] leading-[1.6] tracking-[-0.5px] uppercase font-bold">
                 {companyName}
               </h4>
               <div 
-                className="text-[16px] leading-[25.6px] mb-[63.18px]"
+                className="text-[16px] leading-[25.6px] mb-[20px]"
                 style={{ color: textColor }}
               >
                 {address.map((line, index) => (
@@ -71,10 +71,10 @@ export default function Footer({ data }: FooterProps) {
             <div className="flex flex-col lg:flex-row gap-8 w-full lg:w-[714.67px]">
               {/* Follow */}
               <div className="w-full lg:w-[341.33px]">
-                <h5 className="text-[#f2f2f2] text-[14px] sm:text-[15px] md:text-[16px] leading-[1.6] tracking-[1px] uppercase font-bold mb-[24px] sm:mb-[32px] md:mb-[41.59px]">
+                <h5 className="text-[#f2f2f2] text-[14px] sm:text-[15px] md:text-[16px] leading-[1.6] tracking-[1px] uppercase font-bold">
                   {followTitle}
                 </h5>
-                <div className="flex flex-col gap-[33.59px]">
+                <div className="flex flex-col gap-[5px]">
                   {socialLinks.map((link, index) => (
                     <a 
                       key={index}
@@ -90,10 +90,10 @@ export default function Footer({ data }: FooterProps) {
 
               {/* Contact */}
               <div className="w-full lg:w-[341.34px]">
-                <h5 className="text-[#f2f2f2] text-[14px] sm:text-[15px] md:text-[16px] leading-[1.6] tracking-[1px] uppercase font-bold mb-[24px] sm:mb-[32px] md:mb-[41.59px]">
+                <h5 className="text-[#f2f2f2] text-[14px] sm:text-[15px] md:text-[16px] leading-[1.6] tracking-[1px] uppercase font-bold">
                   {contactTitle}
                 </h5>
-                <div className="flex flex-col gap-[33.59px]">
+                <div className="flex flex-col gap-[5px]">
                   <a 
                     href={`tel:${phone.replace(/[^\d]/g, '')}`} 
                     className="text-[16px] leading-[25.6px] hover:text-white transition-colors"
