@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "KAMO Athletics - CrossFit Gym",
   description: "KAMO Athletics is the collaborative effort of Andy Arson Newton and Nick Petersen, two of Kansas City's most revered CrossFit coaches.",
+  icons: {
+    icon: "/kamo-favicon.svg",
+  },
 };
 
 export default function RootLayout({
