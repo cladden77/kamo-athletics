@@ -130,7 +130,7 @@ export default function About({ data, teamMembers = [] }: AboutProps) {
             const fallbackImages = {
               'NICK': '/nick-profile.jpg',
               'ANDY': '/andy-profile.jpg', 
-              'TONYA': '/tonya-profile.jpg'
+              'TANYA': '/tonya-profile.jpg'
             };
             
             const memberImage = member.image?.asset && member.image.asset._ref !== 'image-nick' && member.image.asset._ref !== 'image-andy' && member.image.asset._ref !== 'image-tonya'
