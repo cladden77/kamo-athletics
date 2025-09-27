@@ -53,11 +53,11 @@ export default function About({ data, teamMembers = [] }: AboutProps) {
       description: "Andy is a CrossFit OG. His life revolves around equanimity, sobriety and fitness. As a decorated combat veteran, the efficacies he forged as a warfighter can be found utilized in his every day coaching."
     },
     {
-      firstName: "TONYA",
-      lastName: "DARYMPLE",
+      firstName: "TANYA",
+      lastName: "DALRYMPLE",
       role: "COACH", 
       image: { asset: { _ref: "image-tonya", _type: "reference" }, alt: "Tonya Darymple" },
-      description: "Tonya began her CrossFit journey in 2013 during her husband's deployment to Afghanistan. During the deployment, she experienced the magic of the CrossFit community as they were a tremendous source of encouragement and support during that challenging time. Fostering community within the framework of the CrossFit methodology is one of her greatest joys."
+      description: "Tanya began her CrossFit journey in 2013 during her husband's deployment to Afghanistan. During the deployment, she experienced the magic of the CrossFit community as they were a tremendous source of encouragement and support during that challenging time. Fostering community within the framework of the CrossFit methodology is one of her greatest joys."
     }
   ];
 
