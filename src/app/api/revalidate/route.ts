@@ -37,7 +37,7 @@ async function handleRevalidation(request: NextRequest) {
     }
 
     if (tag) {
-      revalidateTag(tag)
+      revalidateTag(tag, { expire: 0 })
       return NextResponse.json({
         revalidated: true,
         tag,
@@ -63,7 +63,7 @@ async function handleRevalidation(request: NextRequest) {
       const tagToRevalidate = typeToTagMap[documentType]
       
       if (tagToRevalidate) {
-        revalidateTag(tagToRevalidate)
+        revalidateTag(tagToRevalidate, { expire: 0 })
         revalidatePath('/') // Also revalidate the home page
         
         return NextResponse.json({
@@ -78,7 +78,7 @@ async function handleRevalidation(request: NextRequest) {
 
     // Fallback: Revalidate all content-related tags
     const contentTags = ['hero', 'about', 'teamMember', 'schedule', 'contact', 'footer', 'siteSettings']
-    contentTags.forEach(tag => revalidateTag(tag))
+    contentTags.forEach(tag => revalidateTag(tag, { expire: 0 }))
     revalidatePath('/')
 
     return NextResponse.json({
