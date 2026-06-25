@@ -41,6 +41,7 @@ export const scheduleQuery = `*[_type == "schedule"][0]{
   heading,
   description,
   weekdaySchedule,
+  eveningSchedule,
   weekendSchedule,
   buttonText,
   scheduleImage{

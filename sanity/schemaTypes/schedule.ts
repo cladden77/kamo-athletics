@@ -48,6 +48,27 @@ export const schedule = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'eveningSchedule',
+      title: 'Tuesday/Thursday Evening Schedule',
+      type: 'object',
+      description: 'Additional Kamo class times on Tuesday and Thursday evenings',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Schedule Title',
+          type: 'string',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'times',
+          title: 'Class Times',
+          type: 'string',
+          description: 'Class times separated by | (e.g., "7pm")',
+          validation: (Rule) => Rule.required(),
+        }),
+      ],
+    }),
+    defineField({
       name: 'weekendSchedule',
       title: 'Weekend Schedule',
       type: 'object',

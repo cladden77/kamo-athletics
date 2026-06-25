@@ -10,6 +10,10 @@ interface ScheduleData {
     title: string;
     times: string;
   };
+  eveningSchedule?: {
+    title: string;
+    times: string;
+  };
   weekendSchedule?: {
     title: string;
     times: string;
@@ -49,6 +53,10 @@ export default function ClassSchedule({ data }: ClassScheduleProps) {
   const weekdaySchedule = data?.weekdaySchedule || {
     title: "MONDAY - FRIDAY",
     times: "515am | 630am | 930am | 12pm | 4pm | 5pm | 6pm"
+  };
+  const eveningSchedule = data?.eveningSchedule || {
+    title: "TUESDAY & THURSDAY",
+    times: "7pm"
   };
   const weekendSchedule = data?.weekendSchedule || {
     title: "SATURDAY", 
@@ -127,6 +135,27 @@ export default function ClassSchedule({ data }: ClassScheduleProps) {
                     style={{ color: textColor }}
                   >
                     {weekdaySchedule.times}
+                  </p>
+                </div>
+              </div>
+
+              {/* Tuesday/Thursday Evenings */}
+              <div className="flex flex-col gap-4">
+                <h4 
+                  className="text-[14px] sm:text-[15px] md:text-[15.875px] tracking-[2px] uppercase font-bold leading-[1.6]"
+                  style={{ color: textColor }}
+                >
+                  {eveningSchedule.title}
+                </h4>
+                <div 
+                  className="bg-[#1a1a1a] border-l-4 pl-[27px] pr-6 py-[15px]"
+                  style={{ borderColor: buttonColor }}
+                >
+                  <p 
+                    className="text-[14.4px] tracking-[0.5px] leading-[23px]"
+                    style={{ color: textColor }}
+                  >
+                    {eveningSchedule.times}
                   </p>
                 </div>
               </div>
