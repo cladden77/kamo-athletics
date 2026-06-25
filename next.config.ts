@@ -14,8 +14,14 @@ const nextConfig: NextConfig = {
       fullUrl: process.env.NODE_ENV === 'development',
     },
   },
-  // Configure images for external domains
+  // Configure images for external domains and local proxy route
   images: {
+    localPatterns: [
+      {
+        pathname: '/api/image-proxy',
+        // Omit search to allow the dynamic ?url=... query param
+      },
+    ],
     remotePatterns: [
       {
         protocol: 'https',
